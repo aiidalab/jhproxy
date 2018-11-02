@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Client example with token</title>
+
+            <script>
+                function checkAPI() {
+                  var xhttp = new XMLHttpRequest();
+                  xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4) {
+                      if (xhttp.status == 200) {
+                        document.getElementById("result").innerHTML =
+                          xhttp.responseText;
+                        document.getElementById("error").innerHTML = ""
+                      }
+                      else {
+                        document.getElementById("error").innerHTML = "<strong>ERROR<br></strong>Ready State: " + xhttp.readyState 
+                        + "<br>HTTP Status: " + xhttp.status + "<br> + " + xhttp.responseText;
+                        document.getElementById("result").innerHTML = "";
+                      }
+                    }
+                  };
+                  xhttp.open("GET", document.getElementById("base_uri").value, true);
+                  xhttp.setRequestHeader("X-Proxy-Token", document.getElementById("proxy_token").value);
+                  xhttp.send();
+                }
+                </script>
+                
+    </head>
+<body>
+
+<form id="demo">
+<h2>The XMLHttpRequest Object</h2>
+<input type="text" value="http://localhost:8000/hub/proxy/pizzi/api/v2/" id="base_uri">
+<input type="text" value="" id="proxy_token">
+
+<button type="button" onclick="checkAPI()">Check API connection</button>
+</form>
+
+<div id="error" style="color: #f00;">
+</div>    
+
+Result:
+<div id="result">
+</div>
+
+<a href="http://localhost:8000/hub/proxytoken/" target="_black">Get current token from localhost:8000</a>
+<br>
+<!-- This will be removed and converted to a POST method to the same endpoint as above -->
+<!--<a href="http://localhost:8000/hub/proxytokenrefresh/" target="_black">Generate new token from localhost:8000</a>-->
+
+
+
+</body>
+</html>
+

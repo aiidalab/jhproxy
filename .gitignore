@@ -1,0 +1,7 @@
+*~
+jupyterhub.sqlite
+jupyterhub_cookie_secret
+jhproxy.egg-info/
+.DS_Store
+.ipynb_checkpoints
+__pycache__
