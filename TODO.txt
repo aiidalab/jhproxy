@@ -1,2 +1,0 @@
-- manage HTTP redirects when proxying (requires regexes probably to deal with the correct URL?)
-- say it was inspired by the nbserverproxy

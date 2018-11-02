@@ -12,12 +12,14 @@ class ProxyBaseHandler(BaseHandler):
     """
     Base class for the handler, do not use directly.
     """
-
-    def set_default_headers(self):
-        super().set_default_headers()
+    def _set_proxy_custom_headers(self):
         # Allow CORS requests
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Headers", "X-Proxy-Token")
+
+    def set_default_headers(self):
+        super().set_default_headers()
+        self._set_proxy_custom_headers()
 
     def options(self, username, proxy_path): # pylint: disable=arguments-differ,unused-argument
         """Activate OPTIONS HTTP request, needed for CORS requests from AJAX"""
@@ -310,7 +312,7 @@ class ProxyHandler(ProxyBaseHandler):
         response = yield client.fetch(req, raise_error=False)
 
         # Return a 500 error for all non-HTTP errors
-        if response.error and not isinstance(response.error, httpclient.HTTPError):
+        if response.error and type(response.error) is not httpclient.HTTPError:
             self.set_status(500)
             self.write("{}".format(xhtml_escape(str(response.error))))
         else:
@@ -318,6 +320,9 @@ class ProxyHandler(ProxyBaseHandler):
 
             # clear tornado default headers
             self._headers = httputil.HTTPHeaders()
+
+            # Set the CORS headers
+            self._set_proxy_custom_headers()
 
             # reset the headers
             for header, v in response.headers.get_all():

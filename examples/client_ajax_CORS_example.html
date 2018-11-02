@@ -29,11 +29,14 @@
     </head>
 <body>
 
-<form id="demo">
-<h2>The XMLHttpRequest Object</h2>
-<input type="text" value="http://localhost:8000/hub/proxy/pizzi/api/v2/" id="base_uri">
-<input type="text" value="" id="proxy_token">
 
+<form id="demo">
+<h2>Test the API with token</h2>
+<a href="http://localhost:8000/hub/proxytoken/" target="_black">Get current token from localhost:8000</a>
+<br>
+URI: <input type="text" size="60" value="http://localhost:8000/hub/proxy5000/USERNAMEHERE/" id="base_uri"><br>
+TOKEN: <input type="text" value="" id="proxy_token">
+<br>
 <button type="button" onclick="checkAPI()">Check API connection</button>
 </form>
 
@@ -43,12 +46,6 @@
 Result:
 <div id="result">
 </div>
-
-<a href="http://localhost:8000/hub/proxytoken/" target="_black">Get current token from localhost:8000</a>
-<br>
-<!-- This will be removed and converted to a POST method to the same endpoint as above -->
-<!--<a href="http://localhost:8000/hub/proxytokenrefresh/" target="_black">Generate new token from localhost:8000</a>-->
-
 
 
 </body>
