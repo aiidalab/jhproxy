@@ -31,10 +31,21 @@ if __name__ == '__main__':
         author="Giovanni Pizzi",
         packages=find_packages(),
         description=
-        'A proxy for ports inside Jupyter when running with a DockerSpawner',
+        'A port proxy for JupyterHub when using the DockerSpawner, optionally with (token-based) authorization.',
         url="https://github.com/aiidalab/jhproxy",
         license="MIT",
-        classifiers=["Programming Language :: Python"],
+        classifiers=[
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.5",
+            "License :: OSI Approved :: MIT License",
+        ],
+        keywords=[
+        'jupyterhub', 'proxy', 'authorization', 'token'
+    ],
+        long_description=open(
+        os.path.join(
+            os.path.split(os.path.realpath(__file__))[0], 
+            'README.md'), encoding="utf-8").read(),
         version=get_version(),
         install_requires=['jupyterhub', 'dockerspawner', 'traitlets'],
     )
