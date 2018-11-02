@@ -46,6 +46,7 @@ if __name__ == '__main__':
         os.path.join(
             os.path.split(os.path.realpath(__file__))[0], 
             'README.md'), encoding="utf-8").read(),
+        long_description_content_type='text/markdown',
         version=get_version(),
         install_requires=['jupyterhub', 'dockerspawner', 'traitlets'],
     )
