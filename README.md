@@ -12,28 +12,33 @@ The JupyterHub administrator can:
 
 A user logged in to the JupyterHub can:
 
- * get his or her current proxy token via a `GET` request to `http(s)://<JUPYTERHUBHOST>/hub/proxytoken/`
- * disable or regenerate his or her proxy token via a `POST` request to `http(s)://<JUPYTERHUBHOST>/hub/proxytoken/`
+ * get his or her current proxy token via a `GET` request to
+   `http(s)://<JUPYTERHUBHOST>/hub/proxytoken/`
+ * disable or regenerate his or her proxy token via a `POST` request to
+   `http(s)://<JUPYTERHUBHOST>/hub/proxytoken/`
 
 An internet user can:
 
 * access the proxied service at `http(s)://<JUPYTERHUBHOST>/hub/proxy/<PORT>/<USER>`
 
-
-
 ## Limitations
 
- * works (only) with `DockerSpawner` so far (extended to `jhproxy.spawners.TokenizedDockerSpawner`)
+ * intended to work with `DockerSpawner`
+   (extension to other spawners may come in the future)
 
 ## Background
 
-**Use case:** As the JupyterHub user Bob, you are running a service in your environment (say, a web server running
-on port `5000`). You would like to give your friend Alice (or even the entire world) access to this service
-without giving them access to your entire JupyterHub account.
+**Use case:** As the JupyterHub user Bob, you are running a service in your
+environment (say, a web server running on port `5000`). You would like to give
+your friend Alice (or even the entire world) access to this service without
+giving them access to your entire JupyterHub account.
 
-**Problem 1:** By default, even you as the user running the service have no way of accessing the service by typing a URL into your browser.
-This problem is solved by the [nbserverproxy](https://github.com/jupyterhub/nbserverproxy) jupyter notebook server extension,
-which makes your service available to *you* under `http(s)://<JUPYTERHUBHOST>/user/bob/proxy/5000`
+**Problem 1:** By default, even you as the user running the service have no way
+of accessing the service by typing a URL into your browser.
+This problem is solved by the
+[nbserverproxy](https://github.com/jupyterhub/nbserverproxy) jupyter notebook
+server extension, which makes your service available to *you* under
+`http(s)://<JUPYTERHUBHOST>/user/bob/proxy/5000`
 
 **Problem 2:** Now *you* can access the service from your browser, but your
 friend Alice still can't - because she is not logged in to your account.  This
@@ -63,32 +68,41 @@ Feel free to copy, reuse and edit to your needs.
    inside docker on the 0.0.0.0 interface, otherwise Docker will not allow to
    forward it due to the way networking is configured by default on Docker on the
    Mac. Note that this is an issue of the Docker configuration, not of jhproxy.
- - If you don't need authorization, you can just use the standard `DockerSpawner` and ports will simply be proxied. If you instead want authorization, use `jbproxy.spawners.TokenizedDockerSpawner`
-  as in the configuration example.
+ - If you don't need authorization, you can just use the standard
+   `DockerSpawner` and ports will simply be proxied. If you instead want
+   authorization, use `jbproxy.spawners.TokenizedDockerSpawner` as in the
+   configuration example.
 
 ## Usage
 
 In the following, we assume you are logged in as a user to a JupyterHub
 with `jhproxy` enabled (see installation section). This **won't** work when
-running a simple stand-alone jupyter notebook server or when running inside a JupyterHub that does not have `jhproxy` enabled.
+running a simple stand-alone jupyter notebook server or when running inside a
+JupyterHub that does not have `jhproxy` enabled.
 
 ### No authorization (allow all)
+
+As a user logged in to the JupyterHub:
 
  * open a terminal and start your service (e.g.: `python -m SimpleHTTPServer 5000`)
  * try to connect to it at `http(s)://<JUPYTERHUBHOST>/user/bob/proxy/5000`  
 
 ### Authorization via proxy token
 
+As a user logged in to the JupyterHub:
+
  * open a terminal and start your service (e.g.: `python -m SimpleHTTPServer 5000`)
- * open a terminal and clone this repository
- * open the `examples/token_demo.ipynb` notebook in jupyter
+ * open a terminal and clone this repository into your account
+ * open the `examples/token_demo.ipynb` notebook using the JupyterHub interface
  * run the HTML code cell
  * press the button to get a token from
    `http(s)://<JUPYTERHUBHOST>/hub/proxytoken/`
  * try to connect to your service at `http(s)://<JUPYTERHUBHOST>/user/bob/proxy/5000`  ,
    now providing the proxy token in the `X-Proxy-Token` HTTP header  
 
-See `examples/client_ajax_CORS.html` for an example of how to do the last step via an AJAX request that also checks whether the CORS headers of the server are properly configured.
+See `examples/client_ajax_CORS.html` for an example of how to do the last step
+via an AJAX request that also checks whether the CORS headers of the server are
+properly configured.
 Make sure to put the correct URL, change the string `USERNAMEHERE`, and the token.
 
 ## License
