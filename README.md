@@ -106,7 +106,7 @@ properly configured.
 Make sure to put the correct URL, change the string `USERNAMEHERE`, and the token.
 
 ## Regenerting the tokens/disabling proxy tokens (allow all)
-Open the jupyter notebook in `examples/token_demo.ipynb` (*from within your properly configured JupyterHub installation, with `jbproxy` installed). The notebook has buttons to run these actions (allow all, allow none, allow only via (newly-generated) token, get current token). 
+Open the jupyter notebook in `examples/token_demo.ipynb` (*from within your properly configured JupyterHub installation, with `jbproxy` installed*). The notebook has buttons to run these actions (allow all, allow none, allow only via (newly-generated) token, get current token). 
 
 ## License
 This code is released under the MIT license.
